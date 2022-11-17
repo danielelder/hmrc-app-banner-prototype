@@ -1,0 +1,46 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Web app banners - HMRC – GOV.UK
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Web app banners
+      </h1>
+      <p>
+        If this page is viewed on Android or iOS an install banner should be displayed.
+      </p>
+      <p>
+        This is a JavaScript solution created as a proof of concept for an Optimizely experiment.
+      </p>
+
+      <h2 class="govuk-heading-m">How to test</h2>
+
+      <p>Using Chrome browser open the developer tools and toggle the device toolbar on.</p>
+
+      <p>Select either an iOS (iPhone SE) or Android (Samsung Galaxy S8+) and then refresh the browser.</p>
+      <h2 class="govuk-heading-m">Actions</h2>
+
+      <p>Closing the banner should add a cookie called <code>smartbanner_exited</code>, this will prevent it from being shown for 30 days.</p>
+
+      <p>You can change the delay using the meta tag <code>smartbanner:hide-ttl</code>.</p>
+
+      <h2 class="govuk-heading-m">Documentation</h2>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a href="https://github.com/ain/smartbanner.js">Smartbanner github repo</a>
+        </li>
+        <li>
+          <a href="https://developer.apple.com/documentation/webkit/promoting_apps_with_smart_app_banners">Promoting Apps with Smart App Banners</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}

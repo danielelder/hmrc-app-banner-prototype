@@ -1,0 +1,150 @@
+{#- We can't mount GOV.UK Frontend's assets at root as it's done automatically by the extensions framework. -#}
+{%- set assetPath = '/govuk/assets' -%}
+
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/accordion/macro.njk"           import govukAccordion %}
+{% from "govuk/components/back-link/macro.njk"           import govukBackLink %}
+{% from "govuk/components/breadcrumbs/macro.njk"         import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk"              import govukButton %}
+{% from "govuk/components/character-count/macro.njk"     import govukCharacterCount %}
+{% from "govuk/components/checkboxes/macro.njk"          import govukCheckboxes %}
+{% from "govuk/components/cookie-banner/macro.njk"       import govukCookieBanner %}
+{% from "govuk/components/date-input/macro.njk"          import govukDateInput %}
+{% from "govuk/components/details/macro.njk"             import govukDetails %}
+{% from "govuk/components/error-message/macro.njk"       import govukErrorMessage %}
+{% from "govuk/components/error-summary/macro.njk"       import govukErrorSummary %}
+{% from "govuk/components/fieldset/macro.njk"            import govukFieldset %}
+{% from "govuk/components/file-upload/macro.njk"         import govukFileUpload %}
+{% from "govuk/components/input/macro.njk"               import govukInput %}
+{% from "govuk/components/inset-text/macro.njk"          import govukInsetText %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/pagination/macro.njk"          import govukPagination %}
+{% from "govuk/components/panel/macro.njk"               import govukPanel %}
+{% from "govuk/components/phase-banner/macro.njk"        import govukPhaseBanner %}
+{% from "govuk/components/radios/macro.njk"              import govukRadios %}
+{% from "govuk/components/select/macro.njk"              import govukSelect %}
+{% from "govuk/components/skip-link/macro.njk"           import govukSkipLink %}
+{% from "govuk/components/summary-list/macro.njk"        import govukSummaryList %}
+{% from "govuk/components/table/macro.njk"               import govukTable %}
+{% from "govuk/components/tabs/macro.njk"                import govukTabs %}
+{% from "govuk/components/tag/macro.njk"                 import govukTag %}
+{% from "govuk/components/textarea/macro.njk"            import govukTextarea %}
+{% from "govuk/components/warning-text/macro.njk"        import govukWarningText %}
+
+{% block head %}
+  {% include "includes/head.html" %}
+
+<link href="/public/smartbanner/smartbanner.min.css" rel="stylesheet" type="text/css">
+
+<style>
+  .smartbanner {
+    background-color: #fff;
+  }
+
+  .smartbanner__button {
+    position: absolute;
+    top: 28px;
+    right: 12px;
+    z-index: 1;
+    display: block;
+    padding: 6px 10px;
+    min-width: 12%;
+    border-radius: 14px;
+    background: #0475FE;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+  .smartbanner__button:visited {
+    color: #fff;
+  }
+  .smartbanner__button:focus {
+    color: #000;
+  }
+  .smartbanner.smartbanner--android .smartbanner__button__label {
+    color: #fff;
+  }
+  .smartbanner__info__title {
+    padding-bottom: 4px;
+  }
+  .smartbanner__info__author, 
+  .smartbanner__info__price {
+    color: #68666B;
+    padding-bottom: 2px;
+  }
+  .smartbanner.smartbanner--android .smartbanner__info__author,
+  .smartbanner.smartbanner--android .smartbanner__info__price {
+    color: #ccc;
+    text-shadow: 0 1px 2px #000;
+  }
+  .smartbanner.smartbanner--android .smartbanner__button__label {
+    background: #28818F
+  }
+</style>
+
+<!-- Start SmartBanner configuration -->
+<meta name="smartbanner:title" content="HMRC">
+<meta name="smartbanner:author" content="Finance">
+<meta name="smartbanner:price" content="Free">
+<meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+<meta name="smartbanner:price-suffix-google" content=" - In Google Play">
+<meta name="smartbanner:icon-apple" content="public/smartbanner/hmrc.gif">
+<meta name="smartbanner:icon-google" content="public/smartbanner/hmrc.gif">
+<meta name="smartbanner:button" content="GET">
+<meta name="smartbanner:button-url-apple" content="https://apps.apple.com/gb/app/hmrc/id514561561">
+<meta name="smartbanner:button-url-google" content=https://play.google.com/store/apps/details?id=uk.gov.hmrc.ptcalc&hl=en_GB&gl=US">
+<meta name="smartbanner:enabled-platforms" content="android,ios">
+<meta name="smartbanner:close-label" content="Close banner">
+<meta name="smartbanner:hide-path" content="/">
+<meta name="smartbanner:hide-ttl" content="2592000000">
+<!-- End SmartBanner configuration -->
+
+{% endblock %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  {# Set serviceName in config.js. #}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceName: serviceName,
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
+
+{% if useAutoStoreData %}
+  {% block footer %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "https://govuk-prototype-kit.herokuapp.com/",
+            text: "GOV.UK Prototype Kit " + releaseVersion
+          },
+          {
+            href: "/prototype-admin/clear-data",
+            text: "Clear data"
+          }
+        ],
+        visuallyHiddenTitle: "Footer links"
+      }
+    }) }}
+  {% endblock %}
+{% endif %}
+
+{% block bodyEnd %}
+  {% block scripts %}
+    {% include "includes/scripts.html" %}
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+  <!-- GOV.UK Prototype Kit {{releaseVersion}} -->
+{% endblock %}
